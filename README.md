@@ -6,29 +6,9 @@ https://nour-rabea.github.io/chartjs-bar./
 
 
 ## Create your own
-# Bar or Column Chart with One or More Data Series in Chart.js
+$(document).ready(function() {
 
-![Bar chart with any number of series](./bar.png)
-
-## Demo 
-https://nour-rabea.github.io/chartjs-bar./
-
-Sample data by CT Department of Education.
-
-## Create your own
-See chapter 10: Chart.js and Highcharts templates in [Hands-On Data Visualization](https://handsondataviz.org) by Jack Dougherty and Ilya Ilyankou
-
-Prepare your data in CSV format and upload into a `data.csv` file. Place labels that will appear along the axis in the first column, and each data series in its own column. Your CSV must contain at least two columns (labels and one data series). You can add as many data series columns as you wish. 
-
-| district  | nonlearner | learner |
-|-----------|------------|---------|
-| Hartford  | 15656      | 4111    |
-| New Haven | 17730      | 3534    |
-
-In `script.js`, customize the values of variables shown in the code snippet below:
-
-```javascript
-  var TITLE = 'English Learners by Select School Districts in CT, 2018-19';
+  var TITLE = 'Prices per meter';
 
   // `false` for vertical column chart, `true` for horizontal bar chart
   var HORIZONTAL = false;
@@ -42,45 +22,116 @@ In `script.js`, customize the values of variables shown in the code snippet belo
   // For each column representing a data series, define its name and color
   var SERIES = [  
     {
-      column: 'nonlearner',
-      name: 'Non-Learners',
-      color: 'grey'
+      column: 'Min Price',
+      name: 'Min-Peice',
+      color: 'red'
     },
     {
-      column: 'learner',
-      name: 'Learners',
+      column: 'Max Price',
+      name: 'Max-price',
       color: 'blue'
     }
   ];
 
   // x-axis label and label in tooltip
-  var X_AXIS = 'School Districts';
+  var X_AXIS = 'Projects';
 
   // y-axis label, label in tooltip
-  var Y_AXIS = 'Number of Enrolled Students';
+  var Y_AXIS = 'Meter Price';
 
   // `true` to show the grid, `false` to hide
   var SHOW_GRID = true; 
 
   // `true` to show the legend, `false` to hide
   var SHOW_LEGEND = true; 
-```
 
-For more customization, see [Chart.js documentation](https://www.chartjs.org/docs/latest/).
+  // Read data file and create a chart
+  $.get('./data.csv', function(csvString) {
 
-## Why am I not seeing my chart when I open `index.html` in the browser?
-This error is known as cross-origin request error. When you double-click the file to open locally in your browser, you will see the URL in the address bar starting with `file:`, and all attempts to read a local CSV file, even though it is located in the same folder, will fail.
+    var rows = Papa.parse(csvString, {header: true}).data;
 
-Here are a few ideas how to go around it:
-* Find out how to disable same-origin policy in your browser (to start with, see [this blog post](https://alfilatov.com/posts/run-chrome-without-cors/) or [this StackOverflow thread](https://stackoverflow.com/questions/3102819/disable-same-origin-policy-in-chrome)).
-* Install a program that will emulate a local server on your device, such as `live-server`(https://www.npmjs.com/package/live-server).
-* Move your CSV files to a remote location on the web (such as GitHub Gist, AWS S3, or a Wordpress site),
-and in `script.js`, change `$.get('./data.csv', function(csvString) {` to `$.get('https://wherever.your/file/is/data.csv', function(csvString) {`.
-* Do all the development (file modifications) within GitHub without downloading this repository, using either GitHub's web interface, or GitHub Desktop application.
+    var datasets = SERIES.map(function(el) {
+      return {
+        label: el.name,
+        labelDirty: el.column,
+        backgroundColor: el.color,
+        data: []
+      }
+    });
 
-## See other chart templates
-* Chart.js Bar Chart with Error Bars: https://github.com/HandsOnDataViz/chartjs-error-bars
-* Chart.js Line Chart: https://github.com/HandsOnDataViz/chartjs-line
-* Chart.js Scatter Chart: https://github.com/HandsOnDataViz/chartjs-scatter
-* Chart.js Bubble Chart: https://github.com/HandsOnDataViz/chartjs-bubble
-* Highcharts Annotated Line Chart: https://github.com/HandsOnDataViz/highcharts-line-annotated
+    rows.map(function(row) {
+      datasets.map(function(d) {
+        d.data.push(row[d.labelDirty])
+      })
+    });
+
+		var barChartData = {
+      labels: rows.map(function(el) { return el[LABELS] }),
+			datasets: datasets
+    };
+
+    var ctx = document.getElementById('container').getContext('2d');
+
+    new Chart(ctx, {
+      type: HORIZONTAL ? 'horizontalBar' : 'bar',
+      data: barChartData,
+      
+      options: {
+        title: {
+          display: true,
+          text: TITLE,
+          fontSize: 14,
+        },
+        legend: {
+          display: SHOW_LEGEND,
+        },
+        scales: {
+          xAxes: [{
+            stacked: STACKED,
+            scaleLabel: {
+              display: X_AXIS !== '',
+              labelString: X_AXIS
+            },
+            gridLines: {
+              display: SHOW_GRID,
+            },
+            ticks: {
+              beginAtZero: true,
+              callback: function(value, index, values) {
+                return value.toLocaleString();
+              }
+            }
+          }],
+          yAxes: [{
+            stacked: STACKED,
+            beginAtZero: true,
+            scaleLabel: {
+              display: Y_AXIS !== '',
+              labelString: Y_AXIS
+            },
+            gridLines: {
+              display: SHOW_GRID,
+            },
+            ticks: {
+              beginAtZero: true,
+              callback: function(value, index, values) {
+                return value.toLocaleString()
+              }
+            }
+          }]
+        },
+        tooltips: {
+          displayColors: false,
+          callbacks: {
+            label: function(tooltipItem, all) {
+              return all.datasets[tooltipItem.datasetIndex].label
+                + ': ' + tooltipItem.yLabel.toLocaleString();
+            }
+          }
+        }
+      }
+    });
+
+  });
+
+});
