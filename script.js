@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  var TITLE = 'Prices per meter';
+  var TITLE = 'سعر المتر';
 
   // `false` for vertical column chart, `true` for horizontal bar chart
   var HORIZONTAL = false;
@@ -14,22 +14,22 @@ $(document).ready(function() {
   // For each column representing a data series, define its name and color
   var SERIES = [  
     {
-      column: 'Min Price',
-      name: 'Min-Peice',
+      column: 'اقل سعر',
+      name: 'اقل سعر',
       color: 'red'
     },
     {
-      column: 'Max Price',
-      name: 'Max-price',
+      column: 'اعلى سعر',
+      name: 'اعلى سعر',
       color: 'blue'
     }
   ];
 
   // x-axis label and label in tooltip
-  var X_AXIS = 'Projects';
+  var X_AXIS = 'المشاريع';
 
   // y-axis label, label in tooltip
-  var Y_AXIS = 'Meter Price';
+  var Y_AXIS = 'سعر المتر';
 
   // `true` to show the grid, `false` to hide
   var SHOW_GRID = true; 
