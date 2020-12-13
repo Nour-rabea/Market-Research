@@ -6,4 +6,4 @@ https://nour-rabea.github.io/chartjs-bar./
 
 
 ## Create your own
-<iframe src="https://nour-rabea.github.io/chartjs-bar./"></iframe>
+<iframe src="https://nour-rabea.github.io/chartjs-bar./" width="640" height="480"></iframe>
