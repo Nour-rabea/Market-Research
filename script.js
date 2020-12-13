@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  var TITLE = 'سعر المتر';
+  var TITLE = 'مقارنه بين سعر المتر';
 
   // `false` for vertical column chart, `true` for horizontal bar chart
   var HORIZONTAL = false;
