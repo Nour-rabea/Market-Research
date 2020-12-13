@@ -7,3 +7,6 @@
 
 ## chart
 <iframe src="https://nour-rabea.github.io/chartjs-bar./" width="940" height="480"></iframe>
+
+## Presentation
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQ-41TFejgZFhjH9NzvowQsVsarWEr9L49Cm9PmJC-748_IYuVoQ3xMLKNxwZI2UQ/embed?start=true&loop=false&delayms=3000" frameborder="0" width="1920" height="1109" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
