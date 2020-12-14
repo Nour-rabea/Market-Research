@@ -3,7 +3,7 @@
 
 # منطقة المشروع الجديد
 جاري جمع وتحليل المعلومات
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vS2Cixi1XEIeQEOnLAFHAo5MTArnQR1KNUjuHRomUc7Or39GTO0OopMt33PMubrEg/pubhtml?gid=1032709391&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vS2Cixi1XEIeQEOnLAFHAo5MTArnQR1KNUjuHRomUc7Or39GTO0OopMt33PMubrEg/pubhtml?gid=1032709391&amp;single=true&amp;widget=true&amp;headers=false" width="940" height="480"></iframe>
 
 ## live map
 <iframe src="https://www.google.com/maps/d/embed?mid=1F1Dar4g_IjiQJh4XD7RdPZGwE_3afJC-" width="1040" height="680"></iframe>
